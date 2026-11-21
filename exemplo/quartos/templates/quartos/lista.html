@@ -1,0 +1,10 @@
+<!doctype html><html lang="pt-br"><meta charset="utf-8"><title>Quartos disponíveis</title>
+<h1>Quartos disponíveis</h1>
+<a href="{% url 'quartos:criar' %}">Cadastrar quarto</a>
+<ul>
+{% for quarto in quartos %}
+  <li><a href="{% url 'quartos:detalhe' quarto.pk %}">{{ quarto.numero }} — {{ quarto.tipo }}</a></li>
+{% empty %}
+  <li>Nenhum quarto disponível.</li>
+{% endfor %}
+</ul></html>
