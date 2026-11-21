@@ -1,6 +1,6 @@
 # Django Study Hub
 
-Aplicação de consulta **estática**, em português, para a disciplina Desenvolvimento Web III. A busca e as preferências são locais; não há backend, login, LLM, API paga ou build. A versão da aplicação é uma base inicial curada, **não é uma documentação completa do Django**.
+Aplicação de consulta **estática**, em português, para a disciplina Desenvolvimento Web III. A busca e as preferências são locais; não há backend, login, LLM, API paga ou build. O projeto guiado apresenta 14 passos a partir de uma pasta vazia, com localização, ação, responsabilidade e explicação para cada bloco. A versão da aplicação é uma base inicial curada, **não é uma documentação completa do Django**.
 
 ## Materiais analisados
 
@@ -24,13 +24,31 @@ Para publicar no GitHub Pages:
 3. Acesse a URL publicada informada pelo GitHub. Os recursos usam caminhos relativos; a navegação usa hash (`#/doc/filter`, por exemplo), permitindo links diretos mesmo em repositórios cujo site tem prefixo no caminho, sem configuração de rewrite do servidor.
 4. Depois de modificar JSON ou código, faça commit e push. Não é necessário compilar o site.
 
-Alternativamente, sirva esta pasta em qualquer hospedagem estática. Favoritos, pesquisas, histórico e tema ficam no `localStorage` do navegador, isolados por origem; limpar os dados do navegador os remove. As respostas do simulado não são persistidas nem corrigidas automaticamente.
+Alternativamente, sirva esta pasta em qualquer hospedagem estática. Favoritos, pesquisas, histórico, tema e indicador de assuntos visitados ficam no `localStorage` do navegador, isolados por origem; limpar os dados do navegador os remove. O progresso contabiliza visitas, não aprendizagem concluída. As respostas do simulado não são persistidas nem corrigidas automaticamente.
 
-## Base de conhecimento
+## Base de conhecimento e manutenção
 
-`data/categories.json` lista os módulos e `data/<id-do-módulo>.json` guarda as entradas. Para adicionar conteúdo, inclua um objeto com `id` único, `category`, `title`, `description`, `explanation`, `keywords`, `synonyms`, `code`, `syntax`, `when`, `example`, `error`, `source`, `version`, `kind` e `related` (lista de IDs existentes). A busca pondera título, palavras-chave/sinônimos, código e descrição, e tolera erros curtos de digitação. Para uma **nova categoria**, adicione-a em `categories.json`, crie seu JSON e inclua o nome do arquivo na lista de carregamento em `src/app.js`. Use referências pontuais e revise versão e exemplos.
+O exemplo adota **`exemplo/` como raiz**, `exemplo/resort/` como pacote de configuração, `exemplo/quartos/` como app, e `exemplo/quartos/templates/quartos/` para templates. É uma escolha didática, não uma obrigação do Django. A página **Projeto guiado** apresenta a árvore de arquivos e diferencia caminhos físicos, URLs HTML e endpoints. `exemplo/quartos/api.py` reúne serializer e ViewSet; `exemplo/resort/urls.py` registra o router.
 
-`data/prova-p3.json` contém as oito etapas. Os scripts `build_data.py` e `build_p3.py` foram usados para gerar as bases iniciais e servem como origem alternativa: se executados novamente, **sobrescrevem** os JSON correspondentes. Por isso, em manutenção escolha editar os scripts geradores e regenerar, ou editar os JSON e não executar os geradores sem reconciliar as mudanças. Os trechos da P3 são gerados a partir da pasta `exemplo/`.
+- `data/categories.json` lista os módulos; `data/<id-do-módulo>.json` guarda os tópicos e seus códigos, termos e fontes.
+- `data/didatica.json` reúne para cada ID os campos `location` (`file`, `folder`, `action`, `responsibility`), `scenario`, `prerequisites`, `breakdown`, `connection`, `expected`, `practice` e, quando aplicável, `lines`.
+- `data/prova-p3.json` contém as etapas, e `data/p3-context.json` identifica cada bloco pelo par número/label e registra localização e explicação.
+- `data/guia.json` contém o percurso em ordem de dependência, com metadados de localização em cada bloco.
+
+Para adicionar uma entrada, crie um ID único na categoria correspondente e acrescente seu contexto ao `didatica.json`. Para uma categoria nova, adicione-a a `categories.json`, crie seu arquivo JSON e inclua esse nome na lista de carregamento em `src/app.js`. A busca pondera título, palavras-chave, sinônimos, código, descrição e caminho, com correspondência aproximada. Confira sempre os fragmentos, seus requisitos e fontes. `python tests/validate_data.py` valida IDs, relações e metadados; é uma ferramenta **opcional de manutenção**, não uma dependência da aplicação.
+
+Os scripts geradores são uma forma alternativa de manutenção e **sobrescrevem os JSON**. Se optar por alterá-los, mantenha as mudanças neles e regenere nesta ordem:
+
+```bash
+python build_data.py
+python augment.py
+python build_p3.py
+python build_guide.py
+python build_context.py
+python tests/validate_data.py
+```
+
+`augment.py` acrescenta a base didática; `build_context.py` adiciona explicações por linha, exercícios e os metadados da P3. O guia e a P3 extraem trechos dos arquivos de `exemplo/`. Alternativamente edite apenas os JSON e não execute os geradores antes de reconciliar as alterações. Atenção: alterações diretas no exemplo só chegam ao guia/P3 ao regenerar seus dados.
 
 ## Exemplo completo (opcional, requer Python)
 
@@ -52,4 +70,4 @@ Visite `/quartos/`, `/quartos/novo/` e `/api/quartos/`. O projeto de exemplo inc
 
 ## Verificação
 
-Foram validados o parsing dos JSON, a sintaxe JavaScript e o exemplo Django com migrações e três testes (`pytest` para model, view e API). A busca local foi testada com as 23 frases de intenção do enunciado. O layout possui breakpoints para desktop e celular; o funcionamento pode variar conforme navegador e permissões de clipboard/localStorage.
+Foram validados o parsing e a integridade dos JSON, a sintaxe JavaScript e a renderização dos 46 tópicos, das oito etapas e do guia em ambiente DOM automatizado. A busca foi testada com as 23 frases de intenção do enunciado. O guia e a sequência P3 foram montados, a partir dos próprios trechos, em projetos Django novos: as migrações, três testes (`pytest`), cadastro e listagem HTML e requisições GET/POST da API passaram. O layout possui breakpoints para desktop e celular, mas o teste automatizado de DOM não substitui a inspeção visual em dispositivos reais. O funcionamento pode variar conforme navegador e permissões de clipboard/localStorage.

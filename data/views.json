@@ -158,7 +158,7 @@
     "id": "crud",
     "category": "views",
     "title": "Criação, edição e exclusão",
-    "code": "form = QuartoForm(request.POST or None, instance=quarto)\nif request.method == \"POST\" and form.is_valid():\n    form.save()",
+    "code": "form = QuartoForm(request.POST if request.method == \"POST\" else None, instance=quarto)\nif request.method == \"POST\" and form.is_valid():\n    form.save()",
     "description": "Uma view de edição recupera o objeto, instancia o form com instance e valida antes de salvar. Para excluir, confirme e utilize POST, não GET.",
     "explanation": "Uma view de edição recupera o objeto, instancia o form com instance e valida antes de salvar. Para excluir, confirme e utilize POST, não GET.",
     "when": "Ao implementar CRUD.",
@@ -179,10 +179,10 @@
       "delete"
     ],
     "error": "Confira o nome dos arquivos, os imports e as configurações antes de executar.",
-    "example": "form = QuartoForm(request.POST or None, instance=quarto)\nif request.method == \"POST\" and form.is_valid():\n    form.save()",
+    "example": "form = QuartoForm(request.POST if request.method == \"POST\" else None, instance=quarto)\nif request.method == \"POST\" and form.is_valid():\n    form.save()",
     "source": "https://docs.djangoproject.com/en/5.2/topics/forms/modelforms/",
     "version": "Django 5.2",
-    "syntax": "form = QuartoForm(request.POST or None, instance=quarto)\nif request.method == \"POST\" and form.is_valid():\n    form.save()",
+    "syntax": "form = QuartoForm(request.POST if request.method == \"POST\" else None, instance=quarto)\nif request.method == \"POST\" and form.is_valid():\n    form.save()",
     "kind": "Conceito",
     "related": []
   }

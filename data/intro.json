@@ -199,7 +199,7 @@
     "id": "settings",
     "category": "intro",
     "title": "settings.py e aplicativos",
-    "code": "INSTALLED_APPS = [\n    # aplicativos padrão...\n    \"quartos\",\n]",
+    "code": "INSTALLED_APPS += [\"quartos\"]",
     "description": "settings.py configura o projeto; INSTALLED_APPS informa quais aplicativos estão ativos. O projeto gerado já configura SQLite por padrão.",
     "explanation": "settings.py configura o projeto; INSTALLED_APPS informa quais aplicativos estão ativos. O projeto gerado já configura SQLite por padrão.",
     "when": "Após criar um app ou instalar uma extensão.",
@@ -220,10 +220,10 @@
       "manage.py"
     ],
     "error": "Confira o nome dos arquivos, os imports e as configurações antes de executar.",
-    "example": "INSTALLED_APPS = [\n    # aplicativos padrão...\n    \"quartos\",\n]",
+    "example": "INSTALLED_APPS += [\"quartos\"]",
     "source": "https://docs.djangoproject.com/en/5.2/ref/settings/",
     "version": "Django 5.2",
-    "syntax": "INSTALLED_APPS = [\n    # aplicativos padrão...\n    \"quartos\",\n]",
+    "syntax": "INSTALLED_APPS += [\"quartos\"]",
     "kind": "Conceito",
     "related": []
   },

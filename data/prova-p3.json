@@ -78,7 +78,7 @@
       },
       {
         "label": "Como verificar",
-        "text": "Cadastre um quarto pelo formulário ou admin; visite a lista e depois clique no detalhe. Um pk inexistente deve responder 404.",
+        "text": "Registre o model no admin e crie um superusuário como na etapa 1; após criar os templates na etapa 5, visite a lista e o detalhe. Um pk inexistente deve responder 404.",
         "code": "",
         "language": "python"
       }

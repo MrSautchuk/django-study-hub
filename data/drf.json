@@ -69,7 +69,7 @@
     "id": "viewset",
     "category": "drf",
     "title": "Criar ModelViewSet",
-    "code": "from rest_framework import viewsets\nfrom .models import Quarto\nfrom .serializers import QuartoSerializer\n\nclass QuartoViewSet(viewsets.ModelViewSet):\n    queryset = Quarto.objects.all()\n    serializer_class = QuartoSerializer",
+    "code": "from rest_framework import viewsets\nfrom .models import Quarto\n\nclass QuartoViewSet(viewsets.ModelViewSet):\n    queryset = Quarto.objects.all()\n    serializer_class = QuartoSerializer",
     "description": "ModelViewSet agrupa ações comuns de listagem, detalhe, criação, atualização e exclusão. Configure autenticação e permissões para produção.",
     "explanation": "ModelViewSet agrupa ações comuns de listagem, detalhe, criação, atualização e exclusão. Configure autenticação e permissões para produção.",
     "when": "Para organizar operações REST de um model.",
@@ -86,10 +86,10 @@
       "api"
     ],
     "error": "Confira o nome dos arquivos, os imports e as configurações antes de executar.",
-    "example": "from rest_framework import viewsets\nfrom .models import Quarto\nfrom .serializers import QuartoSerializer\n\nclass QuartoViewSet(viewsets.ModelViewSet):\n    queryset = Quarto.objects.all()\n    serializer_class = QuartoSerializer",
+    "example": "from rest_framework import viewsets\nfrom .models import Quarto\n\nclass QuartoViewSet(viewsets.ModelViewSet):\n    queryset = Quarto.objects.all()\n    serializer_class = QuartoSerializer",
     "source": "https://www.django-rest-framework.org/api-guide/viewsets/",
     "version": "DRF 3.16 · referência externa ao Django",
-    "syntax": "from rest_framework import viewsets\nfrom .models import Quarto\nfrom .serializers import QuartoSerializer\n\nclass QuartoViewSet(viewsets.ModelViewSet):\n    queryset = Quarto.objects.all()\n    serializer_class = QuartoSerializer",
+    "syntax": "from rest_framework import viewsets\nfrom .models import Quarto\n\nclass QuartoViewSet(viewsets.ModelViewSet):\n    queryset = Quarto.objects.all()\n    serializer_class = QuartoSerializer",
     "kind": "Classe",
     "related": [
       "model",
@@ -102,7 +102,7 @@
     "id": "router",
     "category": "drf",
     "title": "Registrar rotas da API",
-    "code": "from rest_framework.routers import DefaultRouter\nfrom .api import QuartoViewSet\n\nrouter = DefaultRouter()\nrouter.register(\"quartos\", QuartoViewSet)\n# urlpatterns: path(\"api/\", include(router.urls))",
+    "code": "from django.urls import include, path\nfrom rest_framework.routers import DefaultRouter\nfrom quartos.api import QuartoViewSet\n\nrouter = DefaultRouter()\nrouter.register(\"quartos\", QuartoViewSet)\n# Acrescente em urlpatterns: path(\"api/\", include(router.urls))",
     "description": "O router gera padrões de URL para as ações do ViewSet; inclua router.urls no URLconf.",
     "explanation": "O router gera padrões de URL para as ações do ViewSet; inclua router.urls no URLconf.",
     "when": "No urls.py, para disponibilizar /api/quartos/.",
@@ -119,10 +119,10 @@
       "endpoint"
     ],
     "error": "Confira o nome dos arquivos, os imports e as configurações antes de executar.",
-    "example": "from rest_framework.routers import DefaultRouter\nfrom .api import QuartoViewSet\n\nrouter = DefaultRouter()\nrouter.register(\"quartos\", QuartoViewSet)\n# urlpatterns: path(\"api/\", include(router.urls))",
+    "example": "from django.urls import include, path\nfrom rest_framework.routers import DefaultRouter\nfrom quartos.api import QuartoViewSet\n\nrouter = DefaultRouter()\nrouter.register(\"quartos\", QuartoViewSet)\n# Acrescente em urlpatterns: path(\"api/\", include(router.urls))",
     "source": "https://www.django-rest-framework.org/api-guide/routers/",
     "version": "DRF 3.16 · referência externa ao Django",
-    "syntax": "from rest_framework.routers import DefaultRouter\nfrom .api import QuartoViewSet\n\nrouter = DefaultRouter()\nrouter.register(\"quartos\", QuartoViewSet)\n# urlpatterns: path(\"api/\", include(router.urls))",
+    "syntax": "from django.urls import include, path\nfrom rest_framework.routers import DefaultRouter\nfrom quartos.api import QuartoViewSet\n\nrouter = DefaultRouter()\nrouter.register(\"quartos\", QuartoViewSet)\n# Acrescente em urlpatterns: path(\"api/\", include(router.urls))",
     "kind": "Método",
     "related": [
       "viewset",
